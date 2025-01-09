@@ -156,11 +156,6 @@ html,
     font-family: 'Pretendard', sans-serif;
   }
 
-
-body {
-  animation: fadeIn 0.2s ease-in-out;
-}
-
   li {
     list-style: none;
   }
