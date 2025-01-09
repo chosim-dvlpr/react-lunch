@@ -41,6 +41,7 @@ export const RestaurantInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  gap: 8px;
 `;
 
 export const RestaurantName = styled.h3`
@@ -57,4 +58,17 @@ export const RestaurantDescription = styled.p`
   -webkit-box-orient: vertical;
 
   ${({ theme }) => theme.font.body}
+  margin: 0;
+`;
+
+export const InfoHeaderBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+`;
+
+export const RestaurantDistance = styled.p`
+  color: ${({ theme }) => theme.colors.primary};
+  ${({ theme }) => theme.font.body}
+  margin: 0;
 `;

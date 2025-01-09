@@ -19,7 +19,12 @@ function RestaurantList({ restaurantList }: RestaurantListProps) {
                 />
               </S.RestaurantCategory>
               <S.RestaurantInfo>
-                <S.RestaurantName>피양콩할마니</S.RestaurantName>
+                <S.InfoHeaderBox>
+                  <S.RestaurantName>피양콩할마니</S.RestaurantName>
+                  <S.RestaurantDistance>
+                    캠퍼스로부터 {restaurant.distance}분 내
+                  </S.RestaurantDistance>
+                </S.InfoHeaderBox>
                 <S.RestaurantDescription>
                   평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩
                   할마니. 두부를 빼지 않은 되비지를 맛볼 수 있는 곳으로,
