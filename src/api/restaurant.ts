@@ -1,16 +1,16 @@
 import axios from 'axios';
-import { RestaurantCategory } from '../types/restaurant';
+import { Restaurant, RestaurantCategory } from '../types/restaurant';
 
 export const API_URL = 'https://example.com';
 
-interface GetRestaurantsResponse {
-  category: RestaurantCategory;
-  description: string;
-  id: string;
-  name: string;
-}
+export const getRestaurants = async (
+  selectedCategory?: RestaurantCategory
+): Promise<Restaurant[]> => {
+  const url =
+    selectedCategory !== 'all'
+      ? `${API_URL}/restaurants?category=${selectedCategory}`
+      : `${API_URL}/restaurants`;
 
-export const getRestaurants = async (): Promise<GetRestaurantsResponse[]> => {
-  const { data } = await axios(`${API_URL}/restaurants`);
+  const { data } = await axios.get<Restaurant[]>(url);
   return data;
 };

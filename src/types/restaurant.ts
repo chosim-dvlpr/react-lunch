@@ -1,7 +1,15 @@
 export type RestaurantCategory =
-  | '한식'
-  | '일식'
-  | '양식'
-  | '중식'
-  | '아시안'
-  | '기타';
+  | 'all'
+  | 'korean'
+  | 'japanese'
+  | 'western'
+  | 'chinese'
+  | 'asian'
+  | 'etc';
+
+export interface Restaurant {
+  category: RestaurantCategory;
+  description: string;
+  id: string;
+  name: string;
+}

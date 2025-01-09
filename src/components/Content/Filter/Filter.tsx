@@ -1,21 +1,47 @@
-function Filter() {
+import * as S from './Filter.styled';
+import { CATEGORIES } from '../../../constants/category';
+import { RestaurantCategory } from '../../../types/restaurant';
+
+interface FilterProps {
+  handleCategoryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+const translateCategory = (category: RestaurantCategory) => {
+  switch (category) {
+    case 'korean':
+      return '한식';
+    case 'japanese':
+      return '일식';
+    case 'chinese':
+      return '중식';
+    case 'western':
+      return '양식';
+    case 'asian':
+      return '아시안';
+    case 'etc':
+      return '기타';
+    default:
+      return '전체';
+  }
+};
+
+function Filter({ handleCategoryChange }: FilterProps) {
   return (
-    <section className="restaurant-filter-container">
-      <select
+    <S.RestaurantFilterContainer>
+      <S.Select
         name="category"
         id="category-filter"
-        className="restaurant-filter"
         aria-label="음식점 카테고리 필터"
+        onChange={handleCategoryChange}
+        defaultValue="전체"
       >
-        <option value="전체">전체</option>
-        <option value="한식">한식</option>
-        <option value="중식">중식</option>
-        <option value="일식">일식</option>
-        <option value="양식">양식</option>
-        <option value="아시안">아시안</option>
-        <option value="기타">기타</option>
-      </select>
-    </section>
+        {CATEGORIES.map((category) => (
+          <option key={category} value={category}>
+            {translateCategory(category)}
+          </option>
+        ))}
+      </S.Select>
+    </S.RestaurantFilterContainer>
   );
 }
 

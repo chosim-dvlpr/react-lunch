@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { getRestaurants } from '../api/restaurant';
+import { RestaurantCategory } from '../types/restaurant';
 
-const useRestaurants = () => {
+const useRestaurants = (selectedCategory: RestaurantCategory) => {
   const { data } = useQuery({
-    queryFn: getRestaurants,
-    queryKey: ['restaurants'],
+    queryFn: () => getRestaurants(selectedCategory),
+    queryKey: ['restaurants', selectedCategory],
   });
 
-  return { restaurantList: data };
+  return { restaurantList: data ?? [] };
 };
 
 export default useRestaurants;

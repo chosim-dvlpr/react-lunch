@@ -1,27 +1,11 @@
-import useRestaurants from '../../../queries/useRestaurants';
-import { RestaurantCategory } from '../../../types/restaurant';
+import { Restaurant } from '../../../types/restaurant';
 import * as S from './RestaurantList.styled';
 
-const showImage = (category: RestaurantCategory) => {
-  switch (category) {
-    case '한식':
-      return 'korean';
-    case '일식':
-      return 'japanese';
-    case '중식':
-      return 'chinese';
-    case '양식':
-      return 'western';
-    case '아시안':
-      return 'asian';
-    default:
-      return 'etc';
-  }
-};
+interface RestaurantListProps {
+  restaurantList: Restaurant[];
+}
 
-function RestaurantList() {
-  const { restaurantList } = useRestaurants();
-
+function RestaurantList({ restaurantList }: RestaurantListProps) {
   return (
     <S.RestaurantListContainer>
       <S.RestaurantList>
@@ -30,9 +14,7 @@ function RestaurantList() {
             <S.Restaurant key={restaurant.id}>
               <S.RestaurantCategory>
                 <S.CategoryIcon
-                  src={`src/assets/category-${showImage(
-                    restaurant.category
-                  )}.png`}
+                  src={`src/assets/category-${restaurant.category}.png`}
                   alt={restaurant.category}
                 />
               </S.RestaurantCategory>
