@@ -6,4 +6,5 @@ export interface AddRestaurantData {
   distance: number;
   description: string;
   link: string;
+  isLiked: boolean;
 }

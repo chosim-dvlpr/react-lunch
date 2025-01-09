@@ -37,11 +37,26 @@ export const CategoryIcon = styled.img`
   height: 36px;
 `;
 
+export const LikedIcon = styled.img`
+  width: 32px;
+  height: 32px;
+`;
+
+export const ListHeaderBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+
 export const RestaurantInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 8px;
+
+  width: 100%;
 `;
 
 export const RestaurantName = styled.h3`

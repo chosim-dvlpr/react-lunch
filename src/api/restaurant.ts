@@ -32,6 +32,7 @@ export const postRestaurant = async ({
   distance,
   description,
   link,
+  isLiked,
 }: AddRestaurantData) => {
   await axios.post(`${API_URL}/restaurant`, {
     category,
@@ -39,9 +40,14 @@ export const postRestaurant = async ({
     distance,
     description,
     link,
+    isLiked,
   });
 };
 
 export const deleteRestaurant = async ({ id }: { id: string }) => {
   await axios.delete(`${API_URL}/restaurant/${id}`);
+};
+
+export const updateLikedRestaurant = async ({ id }: { id: string }) => {
+  await axios.post(`${API_URL}/restaurant/${id}`);
 };

@@ -11,6 +11,7 @@ const useAddRestaurant = (onCloseModal: () => void) => {
       distance,
       description,
       link,
+      isLiked,
     }: AddRestaurantData) =>
       postRestaurant({
         category,
@@ -18,6 +19,7 @@ const useAddRestaurant = (onCloseModal: () => void) => {
         distance,
         description,
         link,
+        isLiked,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({

@@ -16,6 +16,18 @@ export const Restaurant = styled.div`
   border-bottom: 1px solid #e9eaed;
 `;
 
+export const HeaderBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+`;
+
+export const LikedIcon = styled.img`
+  width: 32px;
+  height: 32px;
+`;
+
 export const RestaurantCategory = styled.div`
   display: flex;
   justify-content: center;

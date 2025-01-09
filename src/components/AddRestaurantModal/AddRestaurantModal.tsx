@@ -37,12 +37,14 @@ function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
     distance: number;
     description: string;
     link: string;
+    isLiked: boolean;
   }>({
     category: null,
     name: '',
     distance: 0,
     description: '',
     link: '',
+    isLiked: false,
   });
 
   const handleChange = (
@@ -77,7 +79,7 @@ function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { category, name, distance, description, link } = formData;
+    const { category, name, distance, description, link, isLiked } = formData;
 
     if (!category) return;
 
@@ -89,6 +91,7 @@ function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
       distance,
       description,
       link,
+      isLiked,
     });
   };
 

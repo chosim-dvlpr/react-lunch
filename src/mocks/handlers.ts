@@ -58,4 +58,15 @@ export const handlers = [
 
     return HttpResponse.json(mockRestaurants);
   }),
+
+  http.post(`${API_URL}/restaurant/:id`, async ({ request }) => {
+    const url = new URL(request.url);
+    const id = url.pathname.split('/').at(-1);
+    const index = mockRestaurants.findIndex(
+      (restaurant) => restaurant.id === id
+    );
+    mockRestaurants[index].isLiked = !mockRestaurants[index].isLiked;
+
+    return HttpResponse.json(mockRestaurants);
+  }),
 ];

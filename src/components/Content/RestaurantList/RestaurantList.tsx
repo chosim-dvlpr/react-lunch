@@ -4,6 +4,7 @@ import { Restaurant } from '../../../types/restaurant';
 import Modal from '../../Modal/Modal';
 import RestaurantDetail from '../../RestaurantDetail/RestaurantDetail';
 import * as S from './RestaurantList.styled';
+import useUpdateLiked from '../../../queries/useUpdateLiked';
 
 interface RestaurantListProps {
   restaurantList: Restaurant[];
@@ -11,12 +12,22 @@ interface RestaurantListProps {
 
 function RestaurantList({ restaurantList }: RestaurantListProps) {
   const { isModalOpen, openModal, closeModal } = useModal();
+  const { updateLikedRestaurant } = useUpdateLiked();
+
   const [selectedRestaurant, setSelectedRestaurant] =
     useState<Restaurant | null>(null);
 
   const handleRestaurantClick = (restaurant: Restaurant) => {
     setSelectedRestaurant(restaurant);
     openModal();
+  };
+
+  const handleLikedButtonClick = (
+    event: React.MouseEvent<HTMLImageElement>,
+    id: string
+  ) => {
+    event.stopPropagation();
+    updateLikedRestaurant({ id });
   };
 
   return (
@@ -35,12 +46,24 @@ function RestaurantList({ restaurantList }: RestaurantListProps) {
                 />
               </S.RestaurantCategory>
               <S.RestaurantInfo>
-                <S.InfoHeaderBox>
-                  <S.RestaurantName>{restaurant.name}</S.RestaurantName>
-                  <S.RestaurantDistance>
-                    캠퍼스로부터 {restaurant.distance}분 내
-                  </S.RestaurantDistance>
-                </S.InfoHeaderBox>
+                <S.ListHeaderBox>
+                  <S.InfoHeaderBox>
+                    <S.RestaurantName>{restaurant.name}</S.RestaurantName>
+                    <S.RestaurantDistance>
+                      캠퍼스로부터 {restaurant.distance}분 내
+                    </S.RestaurantDistance>
+                  </S.InfoHeaderBox>
+                  <S.LikedIcon
+                    src={`src/assets/${
+                      restaurant.isLiked
+                        ? 'favorite-icon-filled.png'
+                        : 'favorite-icon-lined.png'
+                    }`}
+                    onClick={(event) =>
+                      handleLikedButtonClick(event, restaurant.id)
+                    }
+                  />
+                </S.ListHeaderBox>
                 <S.RestaurantDescription>
                   {restaurant.description}
                 </S.RestaurantDescription>

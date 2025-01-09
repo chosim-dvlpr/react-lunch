@@ -1,6 +1,8 @@
 import * as S from './RestaurantDetail.styled';
 import { Restaurant } from '../../types/restaurant';
 import useDeleteRestaurant from '../../queries/useDeleteRestaurant';
+import useUpdateLiked from '../../queries/useUpdateLiked';
+import { useReducer } from 'react';
 
 interface RestaurantDetailProps {
   onCloseModal: () => void;
@@ -9,18 +11,42 @@ interface RestaurantDetailProps {
 
 function RestaurantDetail({ onCloseModal, restaurant }: RestaurantDetailProps) {
   const { deleteRestaurant } = useDeleteRestaurant();
+  const { updateLikedRestaurant } = useUpdateLiked();
+  const [isLiked, toggleLiked] = useReducer(
+    (prev) => !prev,
+    restaurant.isLiked
+  );
+
   const handleDeleteRestaurant = () => {
     deleteRestaurant({ id: restaurant.id, onCloseModal });
   };
 
+  const handleLikedButtonClick = (
+    event: React.MouseEvent<HTMLImageElement>,
+    id: string
+  ) => {
+    event.preventDefault();
+    toggleLiked();
+    updateLikedRestaurant({ id });
+  };
+  console.log(restaurant.isLiked);
+
   return (
     <S.Container>
-      <S.RestaurantCategory>
-        <S.CategoryIcon
-          src={`src/assets/category-${restaurant.category}.png`}
-          alt={restaurant.category}
+      <S.HeaderBox>
+        <S.RestaurantCategory>
+          <S.CategoryIcon
+            src={`src/assets/category-${restaurant.category}.png`}
+            alt={restaurant.category}
+          />
+        </S.RestaurantCategory>
+        <S.LikedIcon
+          src={`src/assets/${
+            isLiked ? 'favorite-icon-filled.png' : 'favorite-icon-lined.png'
+          }`}
+          onClick={(event) => handleLikedButtonClick(event, restaurant.id)}
         />
-      </S.RestaurantCategory>
+      </S.HeaderBox>
       <S.RestaurantName>{restaurant.name}</S.RestaurantName>
       <S.RestaurantDistance>
         캠퍼스로부터 {restaurant.distance}분 내
