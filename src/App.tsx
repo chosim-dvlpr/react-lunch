@@ -1,5 +1,13 @@
+import Content from './components/Content/Content';
+import Header from './components/Header/Header';
+
 function App() {
-  return <h1>Self-Paced React</h1>;
+  return (
+    <>
+      <Header />
+      <Content />
+    </>
+  );
 }
 
 export default App;
