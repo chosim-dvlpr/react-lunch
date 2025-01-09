@@ -41,7 +41,7 @@ function RestaurantList({ restaurantList }: RestaurantListProps) {
             >
               <S.RestaurantCategory>
                 <S.CategoryIcon
-                  src={`src/assets/category-${restaurant.category}.png`}
+                  src={`assets/category-${restaurant.category}.png`}
                   alt={restaurant.category}
                 />
               </S.RestaurantCategory>
@@ -54,7 +54,7 @@ function RestaurantList({ restaurantList }: RestaurantListProps) {
                     </S.RestaurantDistance>
                   </S.InfoHeaderBox>
                   <S.LikedIcon
-                    src={`src/assets/${
+                    src={`assets/${
                       restaurant.isLiked
                         ? 'favorite-icon-filled.png'
                         : 'favorite-icon-lined.png'

@@ -10,7 +10,7 @@ function Header() {
     <S.Layout>
       <S.Title>점심 뭐 먹지</S.Title>
       <S.Button type="button" onClick={openModal} aria-label="음식점 추가">
-        <S.RightButtonImage src="src/assets/add-button.png" alt="음식점 추가" />
+        <S.RightButtonImage src="assets/add-button.png" alt="음식점 추가" />
       </S.Button>
 
       {isModalOpen && (

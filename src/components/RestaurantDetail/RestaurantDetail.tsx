@@ -36,12 +36,12 @@ function RestaurantDetail({ onCloseModal, restaurant }: RestaurantDetailProps) {
       <S.HeaderBox>
         <S.RestaurantCategory>
           <S.CategoryIcon
-            src={`src/assets/category-${restaurant.category}.png`}
+            src={`assets/category-${restaurant.category}.png`}
             alt={restaurant.category}
           />
         </S.RestaurantCategory>
         <S.LikedIcon
-          src={`src/assets/${
+          src={`assets/${
             isLiked ? 'favorite-icon-filled.png' : 'favorite-icon-lined.png'
           }`}
           onClick={(event) => handleLikedButtonClick(event, restaurant.id)}
