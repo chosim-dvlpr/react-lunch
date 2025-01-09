@@ -1,6 +1,6 @@
 import useModal from '../../hooks/useModal';
 import Modal from '../Modal/Modal';
-import NewRestaurant from '../NewRestaurant/NewRestaurant';
+import AddRestaurantModal from '../AddRestaurantModal/AddRestaurantModal';
 import * as S from './Header.styled';
 
 function Header() {
@@ -15,7 +15,7 @@ function Header() {
 
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <NewRestaurant />
+          <AddRestaurantModal onCloseModal={closeModal} />
         </Modal>
       )}
     </S.Layout>

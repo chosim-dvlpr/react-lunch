@@ -1,6 +1,10 @@
-import * as S from './NewRestaurant.styled';
+import * as S from './AddRestaurantModal.styled';
 
-function NewRestaurant() {
+interface AddRestaurantModalProps {
+  onCloseModal: () => void;
+}
+
+function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
   return (
     <S.Layout>
       <S.ModalTitle>새로운 음식점</S.ModalTitle>
@@ -54,12 +58,16 @@ function NewRestaurant() {
         </S.FormItem>
 
         <S.ButtonContainer>
-          <S.Button $color="default">취소하기</S.Button>
-          <S.Button $color="primary">추가하기</S.Button>
+          <S.Button $color="default" onClick={onCloseModal} type="button">
+            취소하기
+          </S.Button>
+          <S.Button $color="primary" type="submit">
+            추가하기
+          </S.Button>
         </S.ButtonContainer>
       </S.Form>
     </S.Layout>
   );
 }
 
-export default NewRestaurant;
+export default AddRestaurantModal;
