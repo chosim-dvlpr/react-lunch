@@ -27,7 +27,6 @@ export const ContentWrapper = styled.div`
   height: 100%;
   width: 100%;
   max-width: 390px;
-  box-sizing: border-box;
 
   position: fixed;
   top: 84px;

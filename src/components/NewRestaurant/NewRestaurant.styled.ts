@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Layout = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 36px;
 
   width: 100%;
   height: 100%;
@@ -11,88 +12,99 @@ export const Layout = styled.div`
 `;
 
 export const ModalTitle = styled.h1`
-  margin-bottom: 36px;
-
   ${({ theme }) => theme.font.title}
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
 `;
 
 export const FormItem = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 36px;
+  gap: 6px;
+`;
 
-  label {
-    color: var(--grey-400);
-    font-size: 14px;
-  }
+export const Label = styled.label`
+  display: flex;
+  flex-direction: row;
 
-  &.form-item--required label::after {
-    padding-left: 4px;
-    color: var(--primary-color);
-    content: '*';
-  }
+  color: ${({ theme }) => theme.colors.greyScale4};
+  ${({ theme }) => theme.font.caption}
+`;
 
-  .help-text {
-    color: var(--grey-300);
-  }
+export const Input = styled.input`
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+  border: 1px solid ${({ theme }) => theme.colors.greyScale2};
+  border-radius: 8px;
+  ${({ theme }) => theme.font.body}
+`;
 
-  input,
-  textarea,
-  select {
-    padding: 8px;
-    margin: 6px 0;
-    border: 1px solid var(--grey-200);
-    border-radius: 8px;
-    font-size: 16px;
-  }
+export const Select = styled.select`
+  width: 100%;
+  height: 44px;
+  padding: 8px;
+  border: 1px solid ${({ theme }) => theme.colors.greyScale2};
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.greyScale1};
+  color: ${({ theme }) => theme.colors.greyScale3};
+`;
 
-  textarea {
-    resize: none;
-  }
+export const TextArea = styled.textarea`
+  width: 100%;
+  min-height: 90px;
+  height: 44px;
+  padding: 8px;
+  border: 1px solid ${({ theme }) => theme.colors.greyScale2};
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.greyScale1};
+  color: ${({ theme }) => theme.colors.greyScale3};
+  resize: none;
+`;
 
-  select {
-    height: 44px;
-    padding: 8px;
-    border: 1px solid var(--grey-200);
-    border-radius: 8px;
-    color: var(--grey-300);
-  }
-
-  input[name='name'],
-  input[name='link'] {
-    height: 44px;
-  }
+export const Required = styled.p`
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
+  gap: 16px;
+  width: 100%;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<{ $color: 'default' | 'primary' }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 100%;
   height: 44px;
-  margin-right: 16px;
-  border: none;
   border-radius: 8px;
-  font-weight: 600;
+
   cursor: pointer;
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &.button--secondary {
-    border: 1px solid var(--grey-300);
-    background: transparent;
-    color: var(--grey-300);
-  }
-
-  &.button--primary {
-    background: var(--primary-color);
-    color: var(--grey-100);
-  }
+  ${(props) =>
+    props.$color === 'default'
+      ? `
+        background-color: ${props.theme.colors.greyScale1};
+        color: ${props.theme.colors.greyScale3};
+        border: 1px solid ${props.theme.colors.greyScale3};
+        `
+      : `
+        background-color: ${props.theme.colors.primary};
+        color: ${props.theme.colors.greyScale1};
+      `}
+  ${({ theme }) => theme.font.button};
 `;
 
 export const RestaurantInfo = styled.div`
   margin-bottom: 24px;
+`;
+
+export const HelpText = styled.p`
+  color: ${({ theme }) => theme.colors.greyScale3};
+  ${({ theme }) => theme.font.caption}
 `;
