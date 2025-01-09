@@ -76,7 +76,10 @@ export const ButtonContainer = styled.div`
   width: 100%;
 `;
 
-export const Button = styled.button<{ $color: 'default' | 'primary' }>`
+export const Button = styled.button<{
+  $color: 'default' | 'primary';
+  disabled?: boolean;
+}>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,17 +88,23 @@ export const Button = styled.button<{ $color: 'default' | 'primary' }>`
   height: 44px;
   border-radius: 8px;
 
-  cursor: pointer;
   ${(props) =>
-    props.$color === 'default'
+    props.disabled
+      ? `
+        background-color: ${props.theme.colors.greyScale2};
+        color: ${props.theme.colors.greyScale3};
+        cursor: not-allowed;
+      `
+      : props.$color === 'default'
       ? `
         background-color: ${props.theme.colors.greyScale1};
         color: ${props.theme.colors.greyScale3};
         border: 1px solid ${props.theme.colors.greyScale3};
-        `
+      `
       : `
         background-color: ${props.theme.colors.primary};
         color: ${props.theme.colors.greyScale1};
+        cursor: pointer;
       `}
   ${({ theme }) => theme.font.button};
 `;

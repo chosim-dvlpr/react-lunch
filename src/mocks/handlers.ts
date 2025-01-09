@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { API_URL } from '../api/restaurant';
 import mockRestaurants from './restaurants.json';
+import { AddRestaurantData } from '../components/AddRestaurantModal/AddRestaurantModal.type';
 
 export const handlers = [
   http.get(`${API_URL}/restaurants`, ({ request }) => {
@@ -29,5 +30,21 @@ export const handlers = [
     }
 
     return HttpResponse.json(filteredData);
+  }),
+
+  http.post(`${API_URL}/restaurant`, async ({ request }) => {
+    const requestBody = (await request.json()) as AddRestaurantData;
+
+    const newData: AddRestaurantData & { id: string } = {
+      ...requestBody,
+      id: (mockRestaurants.length + 1).toString(),
+      distance: Number(requestBody.distance),
+      description: requestBody.description ?? '',
+      link: requestBody.link ?? '',
+    };
+
+    mockRestaurants.push(newData);
+
+    return HttpResponse.json(mockRestaurants);
   }),
 ];

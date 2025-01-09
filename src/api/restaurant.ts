@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Restaurant, RestaurantCategory, Sorting } from '../types/restaurant';
+import { AddRestaurantData } from '../components/AddRestaurantModal/AddRestaurantModal.type';
 
 export const API_URL = 'https://example.com';
 
@@ -23,4 +24,20 @@ export const getRestaurants = async ({
   const url = `${API_URL}/restaurants?${params.toString()}`;
   const { data } = await axios.get<Restaurant[]>(url);
   return data;
+};
+
+export const postRestaurant = async ({
+  category,
+  name,
+  distance,
+  description,
+  link,
+}: AddRestaurantData) => {
+  await axios.post(`${API_URL}/restaurant`, {
+    category,
+    name,
+    distance,
+    description,
+    link,
+  });
 };
