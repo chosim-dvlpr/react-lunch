@@ -41,3 +41,7 @@ export const postRestaurant = async ({
     link,
   });
 };
+
+export const deleteRestaurant = async ({ id }: { id: string }) => {
+  await axios.delete(`${API_URL}/restaurant/${id}`);
+};

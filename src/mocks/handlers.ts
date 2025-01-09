@@ -47,4 +47,15 @@ export const handlers = [
 
     return HttpResponse.json(mockRestaurants);
   }),
+
+  http.delete(`${API_URL}/restaurant/:id`, async ({ request }) => {
+    const url = new URL(request.url);
+    const id = url.pathname.split('/').at(-1);
+    const index = mockRestaurants.findIndex(
+      (restaurant) => restaurant.id === id
+    );
+    mockRestaurants.splice(index, 1);
+
+    return HttpResponse.json(mockRestaurants);
+  }),
 ];

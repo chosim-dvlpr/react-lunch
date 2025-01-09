@@ -1,5 +1,6 @@
 import * as S from './RestaurantDetail.styled';
 import { Restaurant } from '../../types/restaurant';
+import useDeleteRestaurant from '../../queries/useDeleteRestaurant';
 
 interface RestaurantDetailProps {
   onCloseModal: () => void;
@@ -7,6 +8,11 @@ interface RestaurantDetailProps {
 }
 
 function RestaurantDetail({ onCloseModal, restaurant }: RestaurantDetailProps) {
+  const { deleteRestaurant } = useDeleteRestaurant();
+  const handleDeleteRestaurant = () => {
+    deleteRestaurant({ id: restaurant.id, onCloseModal });
+  };
+
   return (
     <S.Container>
       <S.RestaurantCategory>
@@ -27,7 +33,7 @@ function RestaurantDetail({ onCloseModal, restaurant }: RestaurantDetailProps) {
       <S.RestaurantLink>{restaurant.link}</S.RestaurantLink>
 
       <S.ButtonContainer>
-        <S.Button onClick={onCloseModal} $color="default">
+        <S.Button onClick={handleDeleteRestaurant} $color="default">
           삭제하기
         </S.Button>
         <S.Button $color="primary" onClick={onCloseModal}>
