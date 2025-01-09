@@ -1,4 +1,4 @@
-import { RestaurantCategory } from '../types/restaurant';
+import { RestaurantCategory, Sorting } from '../types/restaurant';
 
 export const CATEGORIES: RestaurantCategory[] = [
   'all',
@@ -9,3 +9,5 @@ export const CATEGORIES: RestaurantCategory[] = [
   'asian',
   'etc',
 ];
+
+export const SORTING: Sorting[] = ['nameAsc', 'distanceAsc'];

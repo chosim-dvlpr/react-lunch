@@ -1,9 +1,10 @@
 import * as S from './Filter.styled';
-import { CATEGORIES } from '../../../constants/category';
-import { RestaurantCategory } from '../../../types/restaurant';
+import { CATEGORIES, SORTING } from '../../../constants/filter';
+import { RestaurantCategory, Sorting } from '../../../types/restaurant';
 
 interface FilterProps {
   handleCategoryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleSortingChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const translateCategory = (category: RestaurantCategory) => {
@@ -25,7 +26,16 @@ const translateCategory = (category: RestaurantCategory) => {
   }
 };
 
-function Filter({ handleCategoryChange }: FilterProps) {
+const translateSorting = (sorting: Sorting) => {
+  switch (sorting) {
+    case 'nameAsc':
+      return '이름순';
+    case 'distanceAsc':
+      return '거리순';
+  }
+};
+
+function Filter({ handleCategoryChange, handleSortingChange }: FilterProps) {
   return (
     <S.RestaurantFilterContainer>
       <S.Select
@@ -38,6 +48,20 @@ function Filter({ handleCategoryChange }: FilterProps) {
         {CATEGORIES.map((category) => (
           <option key={category} value={category}>
             {translateCategory(category)}
+          </option>
+        ))}
+      </S.Select>
+
+      <S.Select
+        name="sorting"
+        id="sorting-filter"
+        aria-label="음식점 정렬 필터"
+        onChange={handleSortingChange}
+        defaultValue="이름순"
+      >
+        {SORTING.map((sort) => (
+          <option key={sort} value={sort}>
+            {translateSorting(sort)}
           </option>
         ))}
       </S.Select>

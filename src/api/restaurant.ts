@@ -1,16 +1,26 @@
 import axios from 'axios';
-import { Restaurant, RestaurantCategory } from '../types/restaurant';
+import { Restaurant, RestaurantCategory, Sorting } from '../types/restaurant';
 
 export const API_URL = 'https://example.com';
 
-export const getRestaurants = async (
-  selectedCategory?: RestaurantCategory
-): Promise<Restaurant[]> => {
-  const url =
-    selectedCategory !== 'all'
-      ? `${API_URL}/restaurants?category=${selectedCategory}`
-      : `${API_URL}/restaurants`;
+interface GetRestaurantsRequest {
+  selectedCategory?: RestaurantCategory;
+  selectedSorting: Sorting;
+}
 
+export const getRestaurants = async ({
+  selectedCategory,
+  selectedSorting,
+}: GetRestaurantsRequest): Promise<Restaurant[]> => {
+  const params = new URLSearchParams();
+
+  if (selectedCategory && selectedCategory !== 'all') {
+    params.append('category', selectedCategory);
+  }
+
+  params.append('sort', selectedSorting);
+
+  const url = `${API_URL}/restaurants?${params.toString()}`;
   const { data } = await axios.get<Restaurant[]>(url);
   return data;
 };

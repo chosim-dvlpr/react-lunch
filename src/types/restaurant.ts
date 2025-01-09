@@ -12,4 +12,7 @@ export interface Restaurant {
   description: string;
   id: string;
   name: string;
+  distance: number;
 }
+
+export type Sorting = 'nameAsc' | 'distanceAsc';
