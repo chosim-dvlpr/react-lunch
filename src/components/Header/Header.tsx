@@ -1,11 +1,24 @@
+import useModal from '../../hooks/useModal';
+import Modal from '../Modal/Modal';
+import NewRestaurant from '../NewRestaurant/NewRestaurant';
+import * as S from './Header.styled';
+
 function Header() {
+  const { isModalOpen, openModal, closeModal } = useModal();
+
   return (
-    <header className="gnb">
-      <h1 className="gnb__title text-title">점심 뭐 먹지</h1>
-      <button type="button" className="gnb__button" aria-label="음식점 추가">
-        <img src="./add-button.png" alt="음식점 추가" />
-      </button>
-    </header>
+    <S.Layout>
+      <S.Title>점심 뭐 먹지</S.Title>
+      <S.Button type="button" onClick={openModal} aria-label="음식점 추가">
+        <S.RightButtonImage src="src/assets/add-button.png" alt="음식점 추가" />
+      </S.Button>
+
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <NewRestaurant />
+        </Modal>
+      )}
+    </S.Layout>
   );
 }
 
