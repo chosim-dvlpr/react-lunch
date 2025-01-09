@@ -1,4 +1,9 @@
+import useRestaurants from '../../../queries/useRestaurants';
+
 function RestaurantList() {
+  const { restaurantList } = useRestaurants();
+  console.log(restaurantList);
+
   return (
     <section className="restaurant-list-container">
       <ul className="restaurant-list">
