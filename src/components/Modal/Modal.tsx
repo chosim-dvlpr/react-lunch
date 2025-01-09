@@ -4,9 +4,10 @@ import { createPortal } from 'react-dom';
 interface ModalProps extends React.PropsWithChildren {
   isOpen: boolean;
   onClose: () => void;
+  top: number;
 }
 
-function Modal({ children, isOpen, onClose }: ModalProps) {
+function Modal({ children, isOpen, onClose, top }: ModalProps) {
   const portalElement = document.getElementById('modal') as HTMLElement;
 
   if (!portalElement) {
@@ -17,7 +18,7 @@ function Modal({ children, isOpen, onClose }: ModalProps) {
     <S.Layout>
       <S.Container>
         <S.Backdrop onClick={onClose} />
-        <S.ContentWrapper>{children}</S.ContentWrapper>
+        <S.ContentWrapper $top={top}>{children}</S.ContentWrapper>
       </S.Container>
     </S.Layout>
   );

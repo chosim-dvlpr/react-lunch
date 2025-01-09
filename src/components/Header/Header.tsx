@@ -14,7 +14,7 @@ function Header() {
       </S.Button>
 
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <Modal isOpen={isModalOpen} onClose={closeModal} top={84}>
           <AddRestaurantModal onCloseModal={closeModal} />
         </Modal>
       )}

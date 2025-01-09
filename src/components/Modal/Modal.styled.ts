@@ -20,7 +20,7 @@ export const Container = styled.div`
   height: 100%;
 `;
 
-export const ContentWrapper = styled.div`
+export const ContentWrapper = styled.div<{ $top: number }>`
   border-radius: 8px 8px 0px 0px;
   padding: 32px 16px;
 
@@ -29,7 +29,7 @@ export const ContentWrapper = styled.div`
   max-width: 390px;
 
   position: fixed;
-  top: 84px;
+  top: ${(props) => props.$top}px;
   left: 0;
 
   background-color: ${({ theme }) => theme.colors.greyScale1};

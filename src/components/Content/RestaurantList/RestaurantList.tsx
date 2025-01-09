@@ -1,4 +1,8 @@
+import { useState } from 'react';
+import useModal from '../../../hooks/useModal';
 import { Restaurant } from '../../../types/restaurant';
+import Modal from '../../Modal/Modal';
+import RestaurantDetail from '../../RestaurantDetail/RestaurantDetail';
 import * as S from './RestaurantList.styled';
 
 interface RestaurantListProps {
@@ -6,12 +10,24 @@ interface RestaurantListProps {
 }
 
 function RestaurantList({ restaurantList }: RestaurantListProps) {
+  const { isModalOpen, openModal, closeModal } = useModal();
+  const [selectedRestaurant, setSelectedRestaurant] =
+    useState<Restaurant | null>(null);
+
+  const handleRestaurantClick = (restaurant: Restaurant) => {
+    setSelectedRestaurant(restaurant);
+    openModal();
+  };
+
   return (
     <S.RestaurantListContainer>
       <S.RestaurantList>
         {restaurantList &&
           restaurantList.map((restaurant) => (
-            <S.Restaurant key={restaurant.id}>
+            <S.Restaurant
+              key={restaurant.id}
+              onClick={() => handleRestaurantClick(restaurant)}
+            >
               <S.RestaurantCategory>
                 <S.CategoryIcon
                   src={`src/assets/category-${restaurant.category}.png`}
@@ -32,6 +48,15 @@ function RestaurantList({ restaurantList }: RestaurantListProps) {
             </S.Restaurant>
           ))}
       </S.RestaurantList>
+
+      {isModalOpen && selectedRestaurant && (
+        <Modal isOpen={isModalOpen} onClose={closeModal} top={324}>
+          <RestaurantDetail
+            onCloseModal={closeModal}
+            restaurant={selectedRestaurant}
+          />
+        </Modal>
+      )}
     </S.RestaurantListContainer>
   );
 }
