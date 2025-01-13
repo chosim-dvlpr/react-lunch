@@ -4,6 +4,8 @@ import Filter from './Filter/Filter';
 import RestaurantList from './RestaurantList/RestaurantList';
 import { RestaurantCategory, Sorting } from '../../types/restaurant';
 import { CATEGORIES, SORTING } from '../../constants/filter';
+import Tab from './Tab/Tab';
+import useTabContext from '../../hooks/useTabContext';
 
 const isInRestaurantCategory = (item: string): item is RestaurantCategory => {
   return CATEGORIES.includes(item as RestaurantCategory);
@@ -19,6 +21,10 @@ function Content() {
   const [selectedSorting, setSelectedSorting] = useState<Sorting>('nameAsc');
 
   const { restaurantList } = useRestaurants(selectedCategory, selectedSorting);
+  const { selectedTab } = useTabContext();
+  const favoriteRestaurantList = restaurantList.filter(
+    (restaurant) => restaurant.isLiked
+  );
 
   const handleCategoryChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -36,13 +42,32 @@ function Content() {
     }
   };
 
+  const renderedTab = () => {
+    switch (selectedTab) {
+      case 'favorite':
+        return <RestaurantList restaurantList={favoriteRestaurantList} />;
+      default:
+        return (
+          <>
+            <Filter
+              handleCategoryChange={handleCategoryChange}
+              handleSortingChange={handleSortingChange}
+            />
+            <RestaurantList restaurantList={restaurantList} />
+          </>
+        );
+    }
+  };
+
   return (
     <>
-      <Filter
+      <Tab />
+      {renderedTab()}
+      {/* <Filter
         handleCategoryChange={handleCategoryChange}
         handleSortingChange={handleSortingChange}
       />
-      <RestaurantList restaurantList={restaurantList} />
+      <RestaurantList restaurantList={restaurantList} /> */}
     </>
   );
 }
