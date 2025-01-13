@@ -6,13 +6,17 @@ function Tab() {
 
   return (
     <S.Layout>
-      <S.TabBox onClick={() => setSelectedTab('all')}>
-        <S.TabText $isSelected={selectedTab === 'all'}>모든 음식점</S.TabText>
+      <S.TabBox
+        onClick={() => setSelectedTab('all')}
+        $isSelected={selectedTab === 'all'}
+      >
+        <S.TabText>모든 음식점</S.TabText>
       </S.TabBox>
-      <S.TabBox onClick={() => setSelectedTab('favorite')}>
-        <S.TabText $isSelected={selectedTab === 'favorite'}>
-          자주 가는 음식점
-        </S.TabText>
+      <S.TabBox
+        onClick={() => setSelectedTab('favorite')}
+        $isSelected={selectedTab === 'favorite'}
+      >
+        <S.TabText>자주 가는 음식점</S.TabText>
       </S.TabBox>
     </S.Layout>
   );
