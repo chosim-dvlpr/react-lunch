@@ -22,7 +22,7 @@ function Content() {
 
   const { restaurantList } = useRestaurants(selectedCategory, selectedSorting);
   const { selectedTab } = useTabContext();
-  const favoriteRestaurantList = restaurantList.filter(
+  const likedRestaurantList = restaurantList.filter(
     (restaurant) => restaurant.isLiked
   );
 
@@ -44,8 +44,8 @@ function Content() {
 
   const renderedTab = () => {
     switch (selectedTab) {
-      case 'favorite':
-        return <RestaurantList restaurantList={favoriteRestaurantList} />;
+      case 'liked':
+        return <RestaurantList restaurantList={likedRestaurantList} />;
       default:
         return (
           <>

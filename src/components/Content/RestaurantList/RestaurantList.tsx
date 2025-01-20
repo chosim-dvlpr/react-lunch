@@ -56,8 +56,8 @@ function RestaurantList({ restaurantList }: RestaurantListProps) {
                   <S.LikedIcon
                     src={`assets/${
                       restaurant.isLiked
-                        ? 'favorite-icon-filled.png'
-                        : 'favorite-icon-lined.png'
+                        ? 'liked-icon-filled.png'
+                        : 'liked-icon-lined.png'
                     }`}
                     onClick={(event) =>
                       handleLikedButtonClick(event, restaurant.id)

@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 
-type SelectedTab = 'all' | 'favorite';
+type SelectedTab = 'all' | 'liked';
 
 interface TabContextProps {
   selectedTab: SelectedTab;

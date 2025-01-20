@@ -13,8 +13,8 @@ function Tab() {
         <S.TabText>모든 음식점</S.TabText>
       </S.TabBox>
       <S.TabBox
-        onClick={() => setSelectedTab('favorite')}
-        $isSelected={selectedTab === 'favorite'}
+        onClick={() => setSelectedTab('liked')}
+        $isSelected={selectedTab === 'liked'}
       >
         <S.TabText>자주 가는 음식점</S.TabText>
       </S.TabBox>
