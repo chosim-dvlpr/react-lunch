@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Restaurant, RestaurantCategory, Sorting } from '../types/restaurant';
-import { AddRestaurantData } from '../components/AddRestaurantModal/AddRestaurantModal.type';
 
 export const API_URL = 'https://example.com';
 
@@ -33,7 +32,7 @@ export const postRestaurant = async ({
   description,
   link,
   isLiked,
-}: AddRestaurantData) => {
+}: Omit<Restaurant, 'id'>) => {
   await axios.post(`${API_URL}/restaurant`, {
     category,
     name,

@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { postRestaurant } from '../api/restaurant';
 import { queryClient } from '../main';
-import { AddRestaurantData } from '../components/AddRestaurantModal/AddRestaurantModal.type';
+import { Restaurant } from '../types/restaurant';
 
 const useAddRestaurant = (onCloseModal: () => void) => {
   const { mutate } = useMutation({
@@ -12,7 +12,7 @@ const useAddRestaurant = (onCloseModal: () => void) => {
       description,
       link,
       isLiked,
-    }: AddRestaurantData) =>
+    }: Omit<Restaurant, 'id'>) =>
       postRestaurant({
         category,
         name,

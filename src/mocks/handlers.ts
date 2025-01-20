@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { API_URL } from '../api/restaurant';
 import mockRestaurants from './restaurants.json';
-import { AddRestaurantData } from '../components/AddRestaurantModal/AddRestaurantModal.type';
+import { Restaurant } from '../types/restaurant';
 
 export const handlers = [
   http.get(`${API_URL}/restaurants`, ({ request }) => {
@@ -33,9 +33,9 @@ export const handlers = [
   }),
 
   http.post(`${API_URL}/restaurant`, async ({ request }) => {
-    const requestBody = (await request.json()) as AddRestaurantData;
+    const requestBody = (await request.json()) as Omit<Restaurant, 'id'>;
 
-    const newData: AddRestaurantData & { id: string } = {
+    const newData = {
       ...requestBody,
       id: (mockRestaurants.length + 1).toString(),
       distance: Number(requestBody.distance),

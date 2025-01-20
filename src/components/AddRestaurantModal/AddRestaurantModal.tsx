@@ -1,51 +1,28 @@
 import { useEffect, useState } from 'react';
 import useAddRestaurant from '../../queries/useAddRestaurant';
 import * as S from './AddRestaurantModal.styled';
-import { CategoryKorean, RestaurantCategory } from '../../types/restaurant';
+import { CategoryType, Restaurant } from '../../types/restaurant';
+import { CATEGORIES } from '../../constants/filter';
 
 interface AddRestaurantModalProps {
   onCloseModal: () => void;
 }
 
-const translateCategoryToEnglish = (
-  category: CategoryKorean
-): RestaurantCategory => {
-  switch (category) {
-    case '한식':
-      return 'korean';
-    case '일식':
-      return 'japanese';
-    case '중식':
-      return 'chinese';
-    case '양식':
-      return 'western';
-    case '아시안':
-      return 'asian';
-    case '기타':
-      return 'etc';
-    default:
-      return 'all';
-  }
+const INITIAL_FORM_DATA: Omit<Restaurant, 'id' | 'category'> & {
+  category: CategoryType;
+} = {
+  category: { kor: '전체', eng: 'all' },
+  name: '',
+  distance: 0,
+  description: '',
+  link: '',
+  isLiked: false,
 };
 
 function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
   const { mutate: addRestaurant } = useAddRestaurant(onCloseModal);
   const [isValid, setIsValid] = useState(false);
-  const [formData, setFormData] = useState<{
-    category: CategoryKorean | null;
-    name: string;
-    distance: number;
-    description: string;
-    link: string;
-    isLiked: boolean;
-  }>({
-    category: null,
-    name: '',
-    distance: 0,
-    description: '',
-    link: '',
-    isLiked: false,
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -53,24 +30,28 @@ function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
     >
   ) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: name === 'distance' ? Number(value) : value,
+      [name]:
+        name === 'distance'
+          ? Number(value)
+          : name === 'category'
+          ? CATEGORIES.find((category) => category.kor === value) ??
+            prev.category
+          : value,
     }));
   };
 
   const validateFormData = () => {
     const { category, name, distance } = formData;
 
-    if (!category || !name || !distance || distance <= 0) {
-      return false;
-    }
-
-    if (isNaN(Number(distance))) {
-      return false;
-    }
-
-    return true;
+    return (
+      category.eng !== 'all' &&
+      name.trim() !== '' &&
+      distance > 0 &&
+      !isNaN(distance)
+    );
   };
 
   useEffect(() => {
@@ -81,16 +62,14 @@ function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
     e.preventDefault();
     const { category, name, distance, description, link, isLiked } = formData;
 
-    if (!category) return;
-
-    const translatedCategory = translateCategoryToEnglish(category);
+    if (category.eng === 'all') return;
 
     addRestaurant({
-      category: translatedCategory,
+      category: category.eng,
       name,
       distance,
-      description,
-      link,
+      description: description || '',
+      link: link || '',
       isLiked,
     });
   };
@@ -106,11 +85,11 @@ function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
           <S.Select
             name="category"
             id="category"
-            value={formData.category ?? ''}
+            value={formData.category.kor}
             onChange={handleChange}
             required
           >
-            <option value="">선택해 주세요</option>
+            <option value="전체">선택해 주세요</option>
             <option value="한식">한식</option>
             <option value="중식">중식</option>
             <option value="일식">일식</option>

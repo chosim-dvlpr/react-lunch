@@ -1,15 +1,4 @@
-
-import {
-  CategoryKorean,
-  RestaurantCategory,
-  Sorting,
-  SortingKorean,
-} from '../types/restaurant';
-
-export interface CategoryType {
-  kor: CategoryKorean;
-  eng: RestaurantCategory;
-}
+import { CategoryType, SortingType } from '../types/restaurant';
 
 export const CATEGORIES: CategoryType[] = [
   {
@@ -41,11 +30,6 @@ export const CATEGORIES: CategoryType[] = [
     eng: 'etc',
   },
 ] as const;
-
-export interface SortingType {
-  kor: SortingKorean;
-  eng: Sorting;
-}
 
 export const SORTING: SortingType[] = [
   { kor: '이름순', eng: 'nameAsc' },

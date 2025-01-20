@@ -7,7 +7,7 @@ export type RestaurantCategory =
   | 'asian'
   | 'etc';
 
-export type CategoryKorean =
+export type RestaurantCategoryKorean =
   | '전체'
   | '한식'
   | '양식'
@@ -15,6 +15,11 @@ export type CategoryKorean =
   | '중식'
   | '아시안'
   | '기타';
+
+export interface CategoryType {
+  kor: RestaurantCategoryKorean;
+  eng: RestaurantCategory;
+}
 
 export interface Restaurant {
   category: RestaurantCategory;
@@ -28,3 +33,8 @@ export interface Restaurant {
 
 export type Sorting = 'nameAsc' | 'distanceAsc';
 export type SortingKorean = '이름순' | '거리순';
+
+export interface SortingType {
+  kor: SortingKorean;
+  eng: Sorting;
+}
