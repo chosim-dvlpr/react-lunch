@@ -2,25 +2,30 @@ import { useState } from 'react';
 import useRestaurants from '../../queries/useRestaurants';
 import Filter from './Filter/Filter';
 import RestaurantList from './Restaurant/RestaurantList/RestaurantList';
-import { RestaurantCategory, Sorting } from '../../types/restaurant';
-import { CATEGORIES, SORTING } from '../../constants/filter';
+import {
+  CATEGORIES,
+  CategoryType,
+  SORTING,
+  SortingType,
+} from '../../constants/filter';
 import Tab from './Tab/Tab';
 import useTabContext from '../../hooks/useTabContext';
 
-const isInRestaurantCategory = (item: string): item is RestaurantCategory => {
-  return CATEGORIES.includes(item as RestaurantCategory);
-};
-
-const isInSorting = (item: string): item is Sorting => {
-  return SORTING.includes(item as Sorting);
-};
-
 function Content() {
-  const [selectedCategory, setSelectedCategory] =
-    useState<RestaurantCategory>('all');
-  const [selectedSorting, setSelectedSorting] = useState<Sorting>('nameAsc');
+  const [selectedCategory, setSelectedCategory] = useState<CategoryType>({
+    kor: '전체',
+    eng: 'all',
+  });
+  const [selectedSorting, setSelectedSorting] = useState<SortingType>({
+    kor: '이름순',
+    eng: 'nameAsc',
+  });
 
-  const { restaurantList } = useRestaurants(selectedCategory, selectedSorting);
+  const { restaurantList } = useRestaurants(
+    selectedCategory.eng,
+    selectedSorting.eng
+  );
+
   const { selectedTab } = useTabContext();
   const likedRestaurantList = restaurantList.filter(
     (restaurant) => restaurant.isLiked
@@ -30,16 +35,22 @@ function Content() {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedCategory = event.target.value;
-    if (isInRestaurantCategory(selectedCategory)) {
-      setSelectedCategory(selectedCategory);
-    }
+    const data = CATEGORIES.find(
+      (category) => category.kor === selectedCategory
+    );
+
+    if (!data) return;
+
+    setSelectedCategory(data);
   };
 
   const handleSortingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSorting = event.target.value;
-    if (isInSorting(selectedSorting)) {
-      setSelectedSorting(selectedSorting);
-    }
+    const data = SORTING.find((sort) => sort.kor === selectedSorting);
+
+    if (!data) return;
+
+    setSelectedSorting(data);
   };
 
   const tabRenderer: Record<string, JSX.Element> = {
