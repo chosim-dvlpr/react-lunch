@@ -42,32 +42,25 @@ function Content() {
     }
   };
 
-  const renderedTab = () => {
-    switch (selectedTab) {
-      case 'liked':
-        return <RestaurantList restaurantList={likedRestaurantList} />;
-      default:
-        return (
-          <>
-            <Filter
-              handleCategoryChange={handleCategoryChange}
-              handleSortingChange={handleSortingChange}
-            />
-            <RestaurantList restaurantList={restaurantList} />
-          </>
-        );
-    }
+  const tabRenderer: Record<string, JSX.Element> = {
+    liked: <RestaurantList restaurantList={likedRestaurantList} />,
+    default: (
+      <>
+        <Filter
+          handleCategoryChange={handleCategoryChange}
+          handleSortingChange={handleSortingChange}
+        />
+        <RestaurantList restaurantList={restaurantList} />
+      </>
+    ),
   };
+
+  const renderedTab = tabRenderer[selectedTab] || tabRenderer.default;
 
   return (
     <>
       <Tab />
-      {renderedTab()}
-      {/* <Filter
-        handleCategoryChange={handleCategoryChange}
-        handleSortingChange={handleSortingChange}
-      />
-      <RestaurantList restaurantList={restaurantList} /> */}
+      {renderedTab}
     </>
   );
 }
