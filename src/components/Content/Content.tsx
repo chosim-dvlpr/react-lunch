@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useRestaurants from '../../queries/useRestaurants';
 import Filter from './Filter/Filter';
-import RestaurantList from './RestaurantList/RestaurantList';
+import RestaurantList from './Restaurant/RestaurantList/RestaurantList';
 import { RestaurantCategory, Sorting } from '../../types/restaurant';
 import { CATEGORIES, SORTING } from '../../constants/filter';
 import Tab from './Tab/Tab';

@@ -29,7 +29,6 @@ function RestaurantDetail({ onCloseModal, restaurant }: RestaurantDetailProps) {
     toggleLiked();
     updateLikedRestaurant({ id });
   };
-  console.log(restaurant.isLiked);
 
   return (
     <S.Container>
