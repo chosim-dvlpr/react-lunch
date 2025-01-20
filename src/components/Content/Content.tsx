@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useRestaurants from '../../queries/useRestaurants';
 import Filter from './Filter/Filter';
 import RestaurantList from './Restaurant/RestaurantList/RestaurantList';
@@ -6,6 +6,9 @@ import { CATEGORIES, SORTING } from '../../constants/filter';
 import Tab from './Tab/Tab';
 import useTabContext from '../../hooks/useTabContext';
 import { CategoryType, SortingType } from '../../types/restaurant';
+
+const DEFAULT_CATEGORY = CATEGORIES.find((category) => category.eng === 'all');
+const DEFAULT_SORTING = SORTING.find((sort) => sort.eng === 'nameAsc');
 
 function Content() {
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>({
@@ -48,6 +51,17 @@ function Content() {
 
     setSelectedSorting(data);
   };
+
+  const initialFilter = () => {
+    if (!DEFAULT_CATEGORY || !DEFAULT_SORTING) return;
+
+    setSelectedCategory(DEFAULT_CATEGORY);
+    setSelectedSorting(DEFAULT_SORTING);
+  };
+
+  useEffect(() => {
+    initialFilter();
+  }, [selectedTab]);
 
   const tabRenderer: Record<string, JSX.Element> = {
     liked: <RestaurantList restaurantList={likedRestaurantList} />,
