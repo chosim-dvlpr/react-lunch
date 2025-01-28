@@ -16,9 +16,9 @@ function Filter({ handleCategoryChange, handleSortingChange }: FilterProps) {
         onChange={handleCategoryChange}
         defaultValue="전체"
       >
-        {CATEGORIES.map((category, index) => (
-          <option key={index} value={category.kor}>
-            {category.kor}
+        {CATEGORIES.map(({ label, value }) => (
+          <option key={label} value={value}>
+            {label}
           </option>
         ))}
       </S.Select>
@@ -30,9 +30,9 @@ function Filter({ handleCategoryChange, handleSortingChange }: FilterProps) {
         onChange={handleSortingChange}
         defaultValue="이름순"
       >
-        {SORTING.map((sort, index) => (
-          <option key={index} value={sort.kor}>
-            {sort.kor}
+        {SORTING.map(({label,value}) => (
+          <option key={label} value={value}>
+            {label}
           </option>
         ))}
       </S.Select>

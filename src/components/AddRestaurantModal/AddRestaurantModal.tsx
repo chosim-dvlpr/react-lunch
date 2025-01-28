@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import useAddRestaurant from '../../queries/useAddRestaurant';
 import * as S from './AddRestaurantModal.styled';
-import { CategoryType, Restaurant } from '../../types/restaurant';
-import { CATEGORIES } from '../../constants/filter';
+import { Restaurant, RestaurantCategory } from '../../types/restaurant';
+import { CATEGORIES, DEFAULT_CATEGORY } from '../../constants/filter';
 
 interface AddRestaurantModalProps {
   onCloseModal: () => void;
 }
 
 const INITIAL_FORM_DATA: Omit<Restaurant, 'id' | 'category'> & {
-  category: CategoryType;
+  category: RestaurantCategory;
 } = {
-  category: { kor: '전체', eng: 'all' },
+  category: DEFAULT_CATEGORY,
   name: '',
   distance: 0,
   description: '',
@@ -35,13 +35,7 @@ function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
 
     setFormData((prev) => ({
       ...prev,
-      [name]:
-        name === 'distance'
-          ? Number(value)
-          : name === 'category'
-          ? CATEGORIES.find((category) => category.kor === value) ??
-            prev.category
-          : value,
+      [name]: name === 'distance' ? Number(value) : value,
     }));
   };
 
@@ -49,7 +43,7 @@ function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
     const { category, name, distance } = formData;
 
     return (
-      category.eng !== 'all' &&
+      category !== 'all' &&
       name.trim() !== '' &&
       distance > 0 &&
       !isNaN(distance)
@@ -64,10 +58,10 @@ function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
     e.preventDefault();
     const { category, name, distance, description, link, isLiked } = formData;
 
-    if (category.eng === 'all') return;
+    if (category === 'all') return;
 
     addRestaurant({
-      category: category.eng,
+      category,
       name,
       distance,
       description: description || '',
@@ -87,17 +81,15 @@ function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
           <S.Select
             name="category"
             id="category"
-            value={formData.category.kor}
+            value={formData.category}
             onChange={handleChange}
             required
           >
-            <option value="전체">선택해 주세요</option>
-            <option value="한식">한식</option>
-            <option value="중식">중식</option>
-            <option value="일식">일식</option>
-            <option value="양식">양식</option>
-            <option value="아시안">아시안</option>
-            <option value="기타">기타</option>
+            {CATEGORIES.map(({ label, value }) => (
+              <option key={label} value={value}>
+                {label}
+              </option>
+            ))}
           </S.Select>
         </S.FormItem>
 

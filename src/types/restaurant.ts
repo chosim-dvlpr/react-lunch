@@ -16,9 +16,14 @@ export type RestaurantCategoryKorean =
   | '아시안'
   | '기타';
 
-export interface CategoryType {
-  kor: RestaurantCategoryKorean;
-  eng: RestaurantCategory;
+export interface UICategoryType {
+  label: RestaurantCategoryKorean;
+  value: RestaurantCategory;
+}
+
+export interface UISortingType {
+  label: SortingKorean;
+  value: Sorting;
 }
 
 export interface Restaurant {
@@ -33,8 +38,3 @@ export interface Restaurant {
 
 export type Sorting = 'nameAsc' | 'distanceAsc';
 export type SortingKorean = '이름순' | '거리순';
-
-export interface SortingType {
-  kor: SortingKorean;
-  eng: Sorting;
-}

@@ -1,41 +1,35 @@
 import { useEffect, useState } from 'react';
 import useRestaurants from '../queries/useRestaurants';
-import { SORTING } from '../constants/filter';
-import { SortingType } from '../types/restaurant';
+import {
+  DEFAULT_CATEGORY,
+  DEFAULT_SORTING,
+  SORTING,
+} from '../constants/filter';
 import { CATEGORIES } from '../constants/filter';
-import { CategoryType } from '../types/restaurant';
 import useTabContext from './useTabContext';
-
-const DEFAULT_CATEGORY = CATEGORIES.find((category) => category.eng === 'all');
-const DEFAULT_SORTING = SORTING.find((sort) => sort.eng === 'nameAsc');
+import { RestaurantCategory, Sorting } from '../types/restaurant';
 
 const useFilter = () => {
-  const [selectedCategory, setSelectedCategory] = useState<CategoryType>(
-    DEFAULT_CATEGORY || { kor: '전체', eng: 'all' }
-  );
-  const [selectedSorting, setSelectedSorting] = useState<SortingType>(
-    DEFAULT_SORTING || { kor: '이름순', eng: 'nameAsc' }
-  );
+  const [selectedCategory, setSelectedCategory] =
+    useState<RestaurantCategory>(DEFAULT_CATEGORY);
+  const [selectedSorting, setSelectedSorting] =
+    useState<Sorting>(DEFAULT_SORTING);
 
   const { selectedTab } = useTabContext();
-  const { restaurantList } = useRestaurants(
-    selectedCategory.eng,
-    selectedSorting.eng
-  );
+  const { restaurantList } = useRestaurants(selectedCategory, selectedSorting);
 
   const likedRestaurantList = restaurantList.filter(
     (restaurant) => restaurant.isLiked
   );
 
-  const handleSelectChange = <T extends CategoryType | SortingType>(
+  const handleSelectChange = <T extends string>(
     setState: React.Dispatch<React.SetStateAction<T>>,
     options: T[]
   ) => {
     return (event: React.ChangeEvent<HTMLSelectElement>) => {
       const selectedValue = event.target.value;
-      const selectedOption = options.find(
-        (option) => option.kor === selectedValue
-      );
+
+      const selectedOption = options.find((option) => option === selectedValue);
 
       if (selectedOption) {
         setState(selectedOption);
@@ -53,8 +47,14 @@ const useFilter = () => {
   return {
     restaurantList,
     likedRestaurantList,
-    handleCategoryChange: handleSelectChange(setSelectedCategory, CATEGORIES),
-    handleSortingChange: handleSelectChange(setSelectedSorting, SORTING),
+    handleCategoryChange: handleSelectChange(
+      setSelectedCategory,
+      CATEGORIES.map((category) => category.value)
+    ),
+    handleSortingChange: handleSelectChange(
+      setSelectedSorting,
+      SORTING.map((sort) => sort.value)
+    ),
   };
 };
 
