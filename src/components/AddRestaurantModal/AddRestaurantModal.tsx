@@ -20,7 +20,9 @@ const INITIAL_FORM_DATA: Omit<Restaurant, 'id' | 'category'> & {
 };
 
 function AddRestaurantModal({ onCloseModal }: AddRestaurantModalProps) {
-  const { mutate: addRestaurant } = useAddRestaurant(onCloseModal);
+  const { mutate: addRestaurant } = useAddRestaurant({
+    onSuccessCallback: onCloseModal,
+  });
   const [isValid, setIsValid] = useState(false);
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 

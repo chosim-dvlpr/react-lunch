@@ -3,7 +3,11 @@ import { postRestaurant } from '../api/restaurant';
 import { queryClient } from '../main';
 import { Restaurant } from '../types/restaurant';
 
-const useAddRestaurant = (onCloseModal: () => void) => {
+const useAddRestaurant = ({
+  onSuccessCallback,
+}: {
+  onSuccessCallback: () => void;
+}) => {
   const { mutate } = useMutation({
     mutationFn: ({
       category,
@@ -25,7 +29,7 @@ const useAddRestaurant = (onCloseModal: () => void) => {
       queryClient.invalidateQueries({
         queryKey: ['restaurants'],
       });
-      onCloseModal();
+      onSuccessCallback();
     },
   });
 
