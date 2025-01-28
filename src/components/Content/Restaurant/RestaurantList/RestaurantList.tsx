@@ -36,10 +36,7 @@ function RestaurantList({ restaurantList }: RestaurantListProps) {
 
       {isModalOpen && selectedRestaurant && (
         <Modal isOpen={isModalOpen} onClose={closeModal} top={324}>
-          <RestaurantDetail
-            onCloseModal={closeModal}
-            restaurant={selectedRestaurant}
-          />
+          <RestaurantDetail restaurant={selectedRestaurant} />
         </Modal>
       )}
     </S.RestaurantListContainer>
